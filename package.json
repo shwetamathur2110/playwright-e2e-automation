@@ -1,0 +1,22 @@
+{
+  "name": "playwright-e2e-automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shwetamathur2110/playwright-e2e-automation.git"
+  },
+  "keywords": [],
+  "author": "Shweta Mathur",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shwetamathur2110/playwright-e2e-automation/issues"
+  },
+  "homepage": "https://github.com/shwetamathur2110/playwright-e2e-automation#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.3.3"
+  }
+}
