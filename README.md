@@ -1,9 +1,9 @@
-# Playwright E2E Automation - Created by AI Coding Agent 
+# Playwright E2E Automation
 
 ## Project Overview
 This is a **Playwright-based end-to-end testing framework** for automated UI testing. The project uses the Page Object Model (POM) pattern to maintain clean separation between test logic and UI interactions.
 
-The application used for creating this framework is `https://www.saucedemo.com/`
+The application used for creating this framework is [Sauce Demo](https://www.saucedemo.com/)
 
 ## Architecture & Patterns
 
@@ -17,11 +17,11 @@ The application used for creating this framework is `https://www.saucedemo.com/`
   - methods: public functions like login(), fillEmail(), clickSubmit()
   - use page.locator() for modern Playwright patterns
   ```
-- **Benefit**: Tests become readable user stories; UI changes localized to one file
+- **Benefit**: Tests become readable and UI changes localized to one file
 
 ### Domain Structure
 - **Location**: `domain/`
-- **Pattern**: domains wrap POM classes to implement higher-level flows
+- **Pattern**: domain wrap POM classes to implement higher-level flows
 - **Example structure**:
   ```
   domain/login.domain.ts

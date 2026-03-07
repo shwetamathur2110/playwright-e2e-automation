@@ -28,8 +28,14 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('')`. */
     baseURL: 'https://www.saucedemo.com/',
 
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    /* Record a trace for each test, but remove it from successful test runs. */
+    trace: 'retain-on-failure',
+
+    // Capture screenshot after each test failure.
+    screenshot: 'only-on-failure',
+
+    // Record video for each test, but remove all videos from successful test runs.
+    video: 'retain-on-failure'
   },
 
   /* Configure projects for major browsers */

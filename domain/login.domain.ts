@@ -9,7 +9,7 @@ export class LoginDomain {
     }
 
     async login(username: string, password: string) {
-        await this.page.goto('https://www.saucedemo.com/');
+        await this.page.goto('/');
         await this.loginPage.usernameInput.fill(username);
         await this.loginPage.passwordInput.fill(password);
         await this.loginPage.loginButton.click();
