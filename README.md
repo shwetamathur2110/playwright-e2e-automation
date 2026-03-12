@@ -1,4 +1,4 @@
-# Playwright E2E Automation
+# Playwright E2E Automation (In progress)
 
 ## Project Overview
 This is a **Playwright-based end-to-end testing framework** for automated UI testing. The project uses the Page Object Model (POM) pattern to maintain clean separation between test logic and UI interactions.
