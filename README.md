@@ -1,9 +1,60 @@
 # Playwright E2E Automation
 
+
+![Playwright Tests](https://github.com/shwetamathur2110/playwright-e2e-automation/actions/workflows/playwright.yml/badge.svg)
+
 ## Project Overview
 This is a **Playwright-based end-to-end testing framework** for automated UI testing. The project uses the Page Object Model (POM) pattern to maintain clean separation between test logic and UI interactions.
 
 The application used for creating this framework is [Sauce Demo](https://www.saucedemo.com/)
+
+## Tech Stack
+- Playwright
+- TypeScript
+- Node.js
+- npm
+
+
+## Quick Start 
+
+### Installation & Setup
+
+1. Clone the repository
+```bash
+git clone https://github.com/shwetamathur2110/playwright-e2e-automation.git
+cd playwright-e2e-automation
+```
+
+2. Install dependencies
+```bash
+npm install
+```
+
+3. Install Playwright browsers
+```bash
+npx playwright install
+```
+
+### Run Tests
+```bash
+npx playwright test              # Run all tests
+npx playwright test --headed     # Visual mode (browser visible)
+npx playwright test --debug      # Step-through debugging
+npx playwright test login.spec   # Single test file
+```
+
+### Generate Reports & Trace
+- HTML reports: `npx playwright show-report`
+- Trace viewer: Enabled in config on failure for debugging
+- Screenshots/Videos: Capture on failure debugging
+
+### Test Status
+| Feature | Status |
+|---------|--------|
+| UI Tests | In progress |
+| API Tests | planned |
+| CI/CD Integration | planned |
+| Cross-browser tests | supported |
 
 ## Architecture & Patterns
 
@@ -39,34 +90,18 @@ The application used for creating this framework is [Sauce Demo](https://www.sau
 ### Configuration & Fixtures
 - **Config**: `playwright.config.ts` (root) - parallelization, retry logic, timeout settings
 - **Fixtures**: Create reusable test utilities in `tests/fixtures/` for auth, data setup, common object creation etc.
-- **Example**: Custom fixture for authenticated user state to avoid login repetition
 
-## Critical Developer Workflows
+### Environment Configuration
 
-### Run Tests
-```bash
-npx playwright test              # Run all tests
-npx playwright test --headed     # Visual mode (browser visible)
-npx playwright test --debug      # Step-through debugging
-npx playwright test login.spec   # Single test file
-```
+- This project uses the publicly available [Sauce Demo](https://www.saucedemo.com/) application.
+- No environment-specific configuration is required.
+- Base URL is defined in `playwright.config.ts`.
+- (For real-world apps, env variables and separate config files can be added.)
 
-### Generate Reports & Trace
-- HTML reports: `npx playwright show-report` (auto-generated after failure)
-- Trace viewer: Enable in config for detailed interaction playback
-- Screenshots/Videos: Capture on failure for CI/CD debugging
+## Conventions & Best Practices
 
-### Installation & Setup
-```bash
-npm install @playwright/test    # Core dependency
-npx playwright install           # Download browsers
-npx playwright codegen [URL]     # Auto-generate selectors (exploratory tool)
-```
-
-## Project-Specific Conventions
-
-### Naming Conventions
-- **Selectors**: Use data-testid attributes over CSS/XPath when possible (maintainability)
+### Selectors & Locators
+- **Selectors**: Use data-testid attributes for maintainability
   ```typescript
   // GOOD: Resilient to style changes
   page.locator('[data-testid="login-button"]')
@@ -106,11 +141,6 @@ projects: [
 - Tests run headless with screenshots on failure
 - Configure `baseURL` in config for environment-specific test runs
 - Artifact uploads for reports and test videos
-
-### External Dependencies
-- **None by default** - Playwright is self-contained (includes browsers)
-- **If adding**: Mock external APIs (no real API calls in tests)
-- **Database**: Use fixtures to set up test data; avoid direct DB access when mocking is feasible
 
 ## Common Patterns & Anti-Patterns
 
