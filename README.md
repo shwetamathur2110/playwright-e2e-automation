@@ -52,9 +52,9 @@ npx playwright test login.spec   # Single test file
 | Feature | Status |
 |---------|--------|
 | UI Tests | In progress |
-| API Tests | planned |
-| CI/CD Integration | planned |
-| Cross-browser tests | supported |
+| API Tests | Planned |
+| CI/CD Integration | Integrated |
+| Cross-browser tests | Supported |
 
 ## Architecture & Patterns
 

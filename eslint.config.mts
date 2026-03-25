@@ -1,6 +1,7 @@
 import typescript from "@typescript-eslint/eslint-plugin";
 import playwright from "eslint-plugin-playwright";
 import typescriptParser from "@typescript-eslint/parser";
+import prettier from 'eslint-config-prettier';
 const { configs: typescriptConfigs } = typescript;
 
 export default [
@@ -31,8 +32,10 @@ export default [
       "no-focused-test": "warn",
       "no-skipped-test": "warn",
       "no-wait-for-timeout": "error",
-      "prefer-locator":"error",
+      "prefer-locator": "error",
       "no-only-test": "warn",
+      'prettier/prettier': 'error',
     }
-  }
+  },
+  prettier
 ];
