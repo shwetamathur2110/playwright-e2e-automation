@@ -3,7 +3,7 @@ import { test, expect } from '../../fixtures/customfixtures';
 test.describe('Login Test', () => {
    test(
       'should successfully login with valid credentials',
-      { tag: '@smoke' },
+      { tag: ['@smoke', '@regression'] },
       async ({ loginDomain, inventoryPage }) => {
          await loginDomain.login('standard_user', 'secret_sauce');
          await expect(inventoryPage.productsTitle).toBeVisible();

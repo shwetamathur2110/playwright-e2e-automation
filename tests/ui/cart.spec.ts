@@ -3,7 +3,7 @@ import { test, expect } from '../../fixtures/customfixtures';
 test.describe('Cart Test', () => {
    test(
       'should add 1 item to cart and verify cart contents',
-      { tag: '@smoke' },
+      { tag: ['@smoke', '@regression'] },
       async ({
          loginDomain,
          inventoryDomain,

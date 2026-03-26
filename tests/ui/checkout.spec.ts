@@ -3,7 +3,7 @@ import { test, expect } from '../../fixtures/customfixtures';
 test.describe('Checkout Test', () => {
    test(
       'should checkout items in the cart successfully',
-      { tag: '@smoke' },
+      { tag: ['@smoke', '@regression'] },
       async ({
          loginDomain,
          inventoryDomain,
@@ -19,13 +19,10 @@ test.describe('Checkout Test', () => {
          const firstName = 'John';
          const lastName = 'Doe';
          const postalCode = '12345';
-         let productPrice: string[];
          // Login first
          await loginDomain.login('standard_user', 'secret_sauce');
          // Add a product to the cart
          await inventoryDomain.addToCart(productName);
-         // Get the product price
-         productPrice = await inventoryDomain.getProductPrice(productName);
          // Click on the cart link to navigate to the cart page
          await inventoryPage.cartLink.click();
          await expect(cartPage.cartTitle).toHaveText('Your Cart');
@@ -82,6 +79,58 @@ test.describe('Checkout Test', () => {
             'Your order has been dispatched, and will arrive just as fast as the pony can get there!',
          );
          await expect(checkoutCompletePage.backHomeButton).toBeVisible();
+      },
+   );
+
+   test(
+      'should display the correct total amount',
+      { tag: '@regression' },
+      async ({
+         loginDomain,
+         inventoryPage,
+         inventoryDomain,
+         cartPage,
+         checkoutInformationPage,
+         checkoutOverviewPage,
+      }) => {
+         const productName = ['Sauce Labs Backpack'];
+         const firstName = 'John';
+         const lastName = 'Doe';
+         const postalCode = '12345';
+         // Login first
+         await loginDomain.login('standard_user', 'secret_sauce');
+         // Add a product to the cart
+         await inventoryDomain.addToCart(productName);
+         // Click on the cart link to navigate to the cart page
+         await inventoryPage.cartLink.click();
+         await expect(cartPage.cartTitle).toHaveText('Your Cart');
+         await expect(cartPage.inventoryItemName).toHaveText(productName);
+         // Click on the checkout button to navigate to the checkout page
+         await cartPage.checkoutButton.click();
+         await expect(
+            checkoutInformationPage.checkoutInformationTitle,
+         ).toHaveText('Checkout: Your Information');
+         await checkoutInformationPage.continueButton.click();
+         // Validation: Verify that an error message is displayed when the user tries to continue without filling in the required information
+         await expect(checkoutInformationPage.errorMessage).toHaveText(
+            'Error: First Name is required',
+         );
+         await checkoutInformationPage.firstNameInput.fill(firstName);
+         await checkoutInformationPage.continueButton.click();
+         await expect(checkoutInformationPage.errorMessage).toHaveText(
+            'Error: Last Name is required',
+         );
+         await checkoutInformationPage.lastNameInput.fill(lastName);
+         await checkoutInformationPage.continueButton.click();
+         await expect(checkoutInformationPage.errorMessage).toHaveText(
+            'Error: Postal Code is required',
+         );
+         await checkoutInformationPage.postalCodeInput.fill(postalCode);
+         await checkoutInformationPage.continueButton.click();
+         // Verify that the user is navigated to the checkout overview page
+         await expect(checkoutOverviewPage.checkoutOverviewTitle).toHaveText(
+            'Checkout: Overview',
+         );
       },
    );
 });
