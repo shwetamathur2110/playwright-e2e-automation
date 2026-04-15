@@ -7,7 +7,7 @@ on:
    workflow_dispatch:
       inputs:
          test_tag:
-            description: 'Tag to run (e.g. @smoke, @regression)'
+            description: 'Tag to run (e.g. @smoke, @regression, @api)'
             required: true
             default: '@smoke'
 jobs:
