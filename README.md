@@ -16,7 +16,11 @@
 
 This is a **Playwright-based end-to-end testing framework** for automated UI and API testing. The project uses the Page Object Model (POM) pattern to maintain clean separation between test logic and UI interactions.
 
-The application used for creating this framework is [Sauce Demo](https://www.saucedemo.com/)
+The application used for creating this framework:
+
+[Sauce Demo](https://www.saucedemo.com/) - UI Tests
+
+[ReqRes APIs](https://reqres.in) - API Tests
 
 ## Tech Stack
 
@@ -40,9 +44,8 @@ This project is integrated with **GitHub Actions** to automatically execute Play
 - Headless test execution
 - Screenshots and videos captured on failure
 - HTML reports generated and uploaded as artifacts
-- Tag-based test execution for selective runs (e.g. smoke, regression)
+- Tag-based test execution for selective runs (e.g. smoke, regression, api)
 - API tests executed with secure API key via GitHub Secrets
-
 
 ### Benefits
 
@@ -67,7 +70,7 @@ This framework also includes API automation tests using Playwright's built-in re
 
 ### Authentication
 
-Some endpoints require an API key.
+Endpoints requires an API key.
 The key is passed securely using environment variables:
 
 - Local: `.env`
