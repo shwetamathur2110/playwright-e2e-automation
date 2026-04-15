@@ -14,7 +14,7 @@
 
 ## Project Overview
 
-This is a **Playwright-based end-to-end testing framework** for automated UI testing. The project uses the Page Object Model (POM) pattern to maintain clean separation between test logic and UI interactions.
+This is a **Playwright-based end-to-end testing framework** for automated UI and API testing. The project uses the Page Object Model (POM) pattern to maintain clean separation between test logic and UI interactions.
 
 The application used for creating this framework is [Sauce Demo](https://www.saucedemo.com/)
 
@@ -41,12 +41,45 @@ This project is integrated with **GitHub Actions** to automatically execute Play
 - Screenshots and videos captured on failure
 - HTML reports generated and uploaded as artifacts
 - Tag-based test execution for selective runs (e.g. smoke, regression)
+- API tests executed with secure API key via GitHub Secrets
+
 
 ### Benefits
 
 - Early detection of UI regressions
 - Consistent test execution across environments
 - Easy manual test runs without local setup
+
+## API Testing
+
+This framework also includes API automation tests using Playwright's built-in request client.
+
+### API Source
+
+- ReqRes public API is used for demonstration: https://reqres.in
+- Provides sample endpoints for GET, POST, and authentication scenarios
+
+### Covered Scenarios
+
+- GET users (pagination validation)
+- POST create user
+- Negative login scenario (error handling validation)
+
+### Authentication
+
+Some endpoints require an API key.
+The key is passed securely using environment variables:
+
+- Local: `.env`
+- CI/CD: GitHub Secrets
+
+Example:
+
+```ts
+headers: {
+  'x-api-key': process.env.REQRES_API_KEY
+}
+```
 
 ## Quick Start
 
@@ -88,12 +121,11 @@ npx playwright test login.spec   # Single test file
 
 ## Test Status
 
-| Feature             | Status      |
-| ------------------- | ----------- |
-| UI Tests            | Completed   |
-| API Tests           | In Progress |
-| CI/CD Integration   | Integrated  |
-| Cross-browser tests | Supported   |
+| Layer          | Status |
+| -------------- | ------ |
+| UI Tests       | ✔      |
+| API Tests      | ✔      |
+| CI/CD Pipeline | ✔      |
 
 ## Architecture & Patterns
 
@@ -136,10 +168,11 @@ npx playwright test login.spec   # Single test file
 
 ### Environment Configuration
 
-- This project uses the publicly available [Sauce Demo](https://www.saucedemo.com/) application.
-- No environment-specific configuration is required.
-- Base URL is defined in `playwright.config.ts`.
-- (For real-world apps, env variables and separate config files can be added.)
+- This project uses the publicly available [Sauce Demo](https://www.saucedemo.com/) application for UI tests (no configuration required)
+- API tests uses [ReqRes](https://reqres.in/) public API
+   - API key is required and managed via:
+   - `.env` for local runs
+   - GitHub Secrets for CI/CD
 
 ## Conventions & Best Practices
 
