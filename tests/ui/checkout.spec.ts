@@ -1,4 +1,7 @@
 import { test, expect } from '../../fixtures/customfixtures';
+import { users } from '../../test-data/users';
+import { products } from '../../test-data/products';
+import { customer } from '../../test-data/checkout';
 
 test.describe('Checkout Test', () => {
    test(
@@ -15,18 +18,18 @@ test.describe('Checkout Test', () => {
          checkoutOverviewDomain,
          checkoutCompletePage,
       }) => {
-         const productName = ['Sauce Labs Backpack', 'Sauce Labs Bike Light'];
-         const firstName = 'John';
-         const lastName = 'Doe';
-         const postalCode = '12345';
+         const items = [products.backpack, products.bikeLight];
          // Login first
-         await loginDomain.login('standard_user', 'secret_sauce');
+         await loginDomain.login(
+            users.standard.username,
+            users.standard.password,
+         );
          // Add a product to the cart
-         await inventoryDomain.addToCart(productName);
+         await inventoryDomain.addToCart(items);
          // Click on the cart link to navigate to the cart page
          await inventoryPage.cartLink.click();
          await expect(cartPage.cartTitle).toHaveText('Your Cart');
-         await expect(cartPage.inventoryItemName).toHaveText(productName);
+         await expect(cartPage.inventoryItemName).toHaveText(items);
          // Click on the checkout button to navigate to the checkout page
          await cartPage.checkoutButton.click();
          await expect(
@@ -34,9 +37,9 @@ test.describe('Checkout Test', () => {
          ).toHaveText('Checkout: Your Information');
          // Fill in the checkout information and continue to the next step
          await checkoutInformationDomain.fillCheckoutInformation(
-            firstName,
-            lastName,
-            postalCode,
+            customer.firstName,
+            customer.lastName,
+            customer.postalCode,
          );
          await checkoutInformationPage.continueButton.click();
          // Verify that the user is navigated to the checkout overview page
@@ -44,7 +47,7 @@ test.describe('Checkout Test', () => {
             'Checkout: Overview',
          );
          // Verify that the correct product is displayed in the checkout overview page along with the correct price
-         await expect(checkoutOverviewPage.productName).toHaveText(productName);
+         await expect(checkoutOverviewPage.productName).toHaveText(items);
          const priceLocatorCount =
             await checkoutOverviewPage.productItemPrice.count();
          expect(priceLocatorCount).toBeGreaterThan(0);
@@ -93,18 +96,18 @@ test.describe('Checkout Test', () => {
          checkoutInformationPage,
          checkoutOverviewPage,
       }) => {
-         const productName = ['Sauce Labs Backpack'];
-         const firstName = 'John';
-         const lastName = 'Doe';
-         const postalCode = '12345';
+         const items = [products.backpack];
          // Login first
-         await loginDomain.login('standard_user', 'secret_sauce');
+         await loginDomain.login(
+            users.standard.username,
+            users.standard.password,
+         );
          // Add a product to the cart
-         await inventoryDomain.addToCart(productName);
+         await inventoryDomain.addToCart(items);
          // Click on the cart link to navigate to the cart page
          await inventoryPage.cartLink.click();
          await expect(cartPage.cartTitle).toHaveText('Your Cart');
-         await expect(cartPage.inventoryItemName).toHaveText(productName);
+         await expect(cartPage.inventoryItemName).toHaveText(items);
          // Click on the checkout button to navigate to the checkout page
          await cartPage.checkoutButton.click();
          await expect(
@@ -115,17 +118,17 @@ test.describe('Checkout Test', () => {
          await expect(checkoutInformationPage.errorMessage).toHaveText(
             'Error: First Name is required',
          );
-         await checkoutInformationPage.firstNameInput.fill(firstName);
+         await checkoutInformationPage.firstNameInput.fill(customer.firstName);
          await checkoutInformationPage.continueButton.click();
          await expect(checkoutInformationPage.errorMessage).toHaveText(
             'Error: Last Name is required',
          );
-         await checkoutInformationPage.lastNameInput.fill(lastName);
+         await checkoutInformationPage.lastNameInput.fill(customer.lastName);
          await checkoutInformationPage.continueButton.click();
          await expect(checkoutInformationPage.errorMessage).toHaveText(
             'Error: Postal Code is required',
          );
-         await checkoutInformationPage.postalCodeInput.fill(postalCode);
+         await checkoutInformationPage.postalCodeInput.fill(customer.postalCode);
          await checkoutInformationPage.continueButton.click();
          // Verify that the user is navigated to the checkout overview page
          await expect(checkoutOverviewPage.checkoutOverviewTitle).toHaveText(

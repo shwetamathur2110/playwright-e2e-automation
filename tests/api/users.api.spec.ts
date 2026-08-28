@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { createUser, loginWithoutPassword } from '../../test-data/api';
 
 const API_BASE_URL = 'https://reqres.in';
 
@@ -31,16 +32,13 @@ test.describe('ReqRes API tests ', () => {
             headers: {
                'x-api-key': process.env.REQRES_API_KEY!,
             },
-            data: {
-               name: 'John Doe',
-               job: 'Software Engineer',
-            },
+            data: createUser,
          });
          expect(response.status()).toBe(201);
          const responseBody = await response.json();
          expect(responseBody).toHaveProperty('id');
-         expect(responseBody.name).toBe('John Doe');
-         expect(responseBody.job).toBe('Software Engineer');
+         expect(responseBody.name).toBe(createUser.name);
+         expect(responseBody.job).toBe(createUser.job);
       },
    );
 
@@ -52,10 +50,7 @@ test.describe('ReqRes API tests ', () => {
             headers: {
                'x-api-key': process.env.REQRES_API_KEY!,
             },
-            data: {
-               email: 'test@test.com',
-               // password is intentionally missing to trigger the error
-            },
+            data: loginWithoutPassword,
          });
          expect(response.status()).toBe(400);
          const responseBody = await response.json();

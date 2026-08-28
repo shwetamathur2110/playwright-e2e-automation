@@ -14,6 +14,7 @@
     "domain/*.ts",
     "pages/*.ts",
     "tests/**/*.ts",
+    "test-data/*.ts",
     "playwright.config.ts",
     "fixtures/*.ts",
   ],
